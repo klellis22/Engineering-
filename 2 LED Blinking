@@ -1,0 +1,46 @@
+const int LED_PIN2 = 2;
+    const int LED_PIN3 = 3;
+
+void setup() {
+    Serial.begin(115200);
+    pinMode(LED_PIN2, OUTPUT);
+    pinMode(LED_PIN3, OUTPUT);
+    char fileName[] = {__FILE__};
+    Serial.println(fileName);
+    Serial.println("Setup complete");
+}
+
+void loop() {
+    flashEqualOnOffPin2();
+    flashUnequalOnOffPin3();
+}
+
+void flashEqualOnOffPin2() {
+    uint32_t currentMillis = millis();
+    static uint32_t lastMillis;
+    const uint32_t onOffTime = 500;                 //Duration for LED to be on or off before changing state, in miliseconds
+    
+    if (currentMillis - lastMillis >= onOffTime) {
+        lastMillis += onOffTime;
+            digitalWrite(LED_PIN2, !(digitalRead(LED_PIN2)));     // Chnage the state of pin 2 by reading its current state then writing the opposite state back to the pin
+    }
+}
+
+void flashUnequalOnOffPin3() {
+    uint32_t currentMillis = millis();
+    static uint32_t lastMillis;
+    const uint32_t onTime = 1750;     //Duration for LED to be on, in miliseconds
+    const uint32_t offTime = 350;     //Duration for LED to be off, in miliseconds
+
+     if (digitalRead(LED_PIN3)) {                              // Read the current state of pin 3
+        if (currentMillis - lastMillis >= onTime) {     // Pin 3 is high (LED on), check on time and turn LED off if time has expired
+            lastMillis += onTime;                       // Add the value of onTime to lastMillis ready to start the next timing interval
+            digitalWrite(LED_PIN3, LOW);                       // Turn LED off
+        }
+     } else {
+        if (currentMillis - lastMillis >= offTime) {    // Pin 3 is low (LED off), check off time and turn LED on if time has expired
+            lastMillis += offTime;                      // Add the value of offTime to lastMillis ready to start the next timing interval
+            digitalWrite(LED_PIN3, HIGH);                      // Turn LED on
+        }
+     }
+}
