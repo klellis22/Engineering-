@@ -1,0 +1,29 @@
+int buttonpin = 7;
+int LEDpin = 12;
+int buttonstate = 0;
+int LEDstatus = 0;
+
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(buttonpin, INPUT);
+  pinMode(LEDpin, OUTPUT);
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  buttonstate = digitalRead(buttonpin);
+
+  {
+    if (buttonstate == 1)
+    {
+    if (LEDstatus == 1) { 
+      LEDstatus = 0;
+      digitalWrite(LEDpin, LOW);
+      } else {
+      LEDstatus = 1;
+      digitalWrite(LEDpin, HIGH);
+      }
+    }
+  delay (300);
+  }
+}
