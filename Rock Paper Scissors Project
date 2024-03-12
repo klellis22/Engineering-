@@ -82,15 +82,15 @@ void loop() {
     switch(randomNumber)
     {
       case 1:
-        ____________(rock);
+        loop(rock);
       break;
     
       case 2:
-        ____________(paper);
+        loop(paper);
       break;
     
       case 3:
-        ____________(scissor);
+        loop(scissor);
       break;
     }
     
@@ -100,9 +100,9 @@ void loop() {
   delay(250);
 }
 
-void ____________(int object)
+void loop(int object)
 {
-      servo_main.write(______);
+      servo_main.write(196);
       delay(1000);
       
       servo_wheel.write(95);
